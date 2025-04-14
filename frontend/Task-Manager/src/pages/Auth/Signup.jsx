@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import { validateEmail } from "../../utils/helper";
@@ -44,10 +43,7 @@ const Signup = () => {
         </p>
 
         <form onSubmit={handleSignUp}>
-          <ProfilePhotoSelector
-            image={profilePic}
-            setImage={setProfilePic}
-          ></ProfilePhotoSelector>
+          <ProfilePhotoSelector image={profilePic} setImage={setProfilePic} />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </form>
       </div>
