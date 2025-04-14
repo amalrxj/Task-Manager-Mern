@@ -1,9 +1,10 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
 import { validateEmail } from "../../utils/helper";
+import { API_PATHS } from "../../utils/apiPaths";
+import { axiosInstance } from "../../utils/axiosInstance";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,19 +16,44 @@ const Login = () => {
   // Handle Login form submit
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
+
+    if (!password) {
+      setError("Password is required");
+      return;
+    }
+
+    setError("");
+
+    // Login API call
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+
+      const { token, role } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        if (role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/user/dashboard");
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    }
   };
-
-  if (!validateEmail(email)) {
-    setError("Please enter a valid email address");
-    return;
-  }
-
-  if (!password) {
-    setError("Password is required");
-    return;
-  }
-
-  setError("");
 
   return (
     <AuthLayout>
