@@ -18,7 +18,8 @@ import MyTasks from "./pages/User/MyTasks";
 import ViewTaskDetails from "./pages/User/ViewTaskDetails";
 
 import PrivateRoute from "./routes/PrivateRoute";
-import UserProvider, { UserContext } from "./context/userContext";
+import UserProvider from "./context/userContext";
+import {UserContext} from "./context/userContextInstance"
 
 import { Navigate } from "react-router-dom";
 
@@ -40,12 +41,14 @@ const App = () => {
             </Route>
 
             {/* User Routes */}
+            <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
             <Route path="/user/dashboard" element={<UserDashboard />} />
             <Route path="/user/tasks" element={<MyTasks />} />
             <Route
               path="/user/tasks-details/:id"
               element={<ViewTaskDetails />}
             />
+            </Route>
             {/* Default route */}
             <Route path="/" element={<Root />} />
           </Routes>

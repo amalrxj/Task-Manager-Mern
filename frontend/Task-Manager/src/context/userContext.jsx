@@ -1,15 +1,14 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_PATHS } from "../utils/apiPaths";
-
-export const UserContext = createContext();
+import { UserContext } from "./userContextInstance"
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) return;
+    // if (user) return;
 
     const accessToken = localStorage.getItem("token");
     if (!accessToken) {
@@ -30,11 +29,13 @@ const UserProvider = ({ children }) => {
     };
 
     fetchUser();
-  }, [user]);
+  }, []);
 
   const updateUser = (userData) => {
     setUser(userData);
-    localStorage.setItem("token", userData.token);
+    if (userData.token) {
+      localStorage.setItem("token", userData.token);
+    }
     setLoading(false);
   };
 
@@ -50,5 +51,4 @@ const UserProvider = ({ children }) => {
   );
 };
 
-// export default UserProvider, UserContext;
-export default UserProvider;
+export default UserProvider ;
