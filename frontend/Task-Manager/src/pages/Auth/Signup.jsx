@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import { validateEmail } from "../../utils/helper";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import Input from "../../components/Inputs/Input";
 import { Link } from "react-router-dom";
+import { API_PATHS } from "../../utils/apiPaths";
+import axiosInstance from "../../utils/axiosInstance";
+import { UserContext } from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
+import uploadImage from "../../utils/uploadImage";
+
 
 const Signup = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -14,9 +20,14 @@ const Signup = () => {
 
   const [error, setError] = useState(null);
 
+  const { updateUser } = useContext(UserContext); // Assuming you have a UserContext to manage user state
+  const navigate = useNavigate();
+
   // Handle Signup form submit
   const handleSignUp = async (e) => {
     e.preventDefault();
+
+    let profileImageUrl = "";
 
     if (!fullName) {
       setError("Fullname is required");
@@ -34,6 +45,39 @@ const Signup = () => {
     }
 
     setError("");
+    // Login API call
+    try {
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || "";
+      }
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        name: fullName,
+        email,
+        password,
+        adminInviteToken,
+        profileImageUrl,
+      });
+
+      const { token, role } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        updateUser(response.data);
+        if (role === "admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/user/dashboard");
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
+    }
   };
   return (
     <AuthLayout>
@@ -69,7 +113,7 @@ const Signup = () => {
             />
             <Input
               value={adminInviteToken}
-              onChange={({ target }) => setPassword(target.value)}
+              onChange={({ target }) => setAdminInviteToken(target.value)}
               label="Admin Invite Token"
               placeholder="6 Digit Token"
               type="text"

@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import Input from "../../components/Inputs/Input";
 import { validateEmail } from "../../utils/helper";
 import { API_PATHS } from "../../utils/apiPaths";
-import { axiosInstance } from "../../utils/axiosInstance";
+import axiosInstance from "../../utils/axiosInstance";
+import { UserContext } from "../../context/userContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const { updateUser } = useContext(UserContext); // Assuming you have a UserContext to manage user state
 
   const navigate = useNavigate();
 
@@ -40,6 +43,7 @@ const Login = () => {
 
       if (token) {
         localStorage.setItem("token", token);
+        updateUser(response.data); // Assuming updateUser is a function to set user data in context
         if (role === "admin") {
           navigate("/admin/dashboard");
         } else {
