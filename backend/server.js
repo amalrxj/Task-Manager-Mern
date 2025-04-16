@@ -41,7 +41,7 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/reports", reportRoutes);
 
 // Serve frontend build (React App)
-const __dirnameFrontend = path.join(__dirname, '../frontend/Task-Manager/dist');
+const __dirnameFrontend = path.join(__dirname, '../frontend/dist');
 app.use(express.static(__dirnameFrontend));
 
 // Catch-all handler to serve React's index.html
