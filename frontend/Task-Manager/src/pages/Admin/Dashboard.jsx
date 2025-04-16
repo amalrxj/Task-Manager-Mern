@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from "react";
 import { useUserAuth } from "../../hooks/useUserAuth";
 import { UserContext } from "../../context/userContextInstance";
