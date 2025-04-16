@@ -1,8 +1,8 @@
 {
-  "name": "task-manager",
-  "scripts": {
-    "install": "npm install --prefix frontend/Task-Manager && npm install --prefix backend",
-    "build": "npm run build --prefix frontend/Task-Manager",
-    "start": "node backend/index.js"
+    "name": "task-manager",
+    "scripts": {
+      "start": "cd backend && npm start",
+      "build": "cd frontend/Task-Manager && npm install && npm run build"
+    }
   }
-}
+  
