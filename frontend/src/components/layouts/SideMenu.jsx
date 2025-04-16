@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContextInstance";
 import { SIDE_MENU_DATA, SIDE_MENU_USER_DATA } from "../../utils/data";
 import { useNavigate } from "react-router-dom";
+import { FaCrown } from "react-icons/fa";
 
 const SideMenu = ({ activeMenu }) => {
   const { user, clearUser } = useContext(UserContext);
-  const [sideMenuData, setSideMenuData] = useState([])
-  const [validImage, setValidImage] = useState(null);;
+  const [sideMenuData, setSideMenuData] = useState([]);
+  const [validImage, setValidImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -38,22 +39,22 @@ const SideMenu = ({ activeMenu }) => {
     const img = new Image();
     img.src = user.profileImageUrl;
     img.onload = () => setValidImage(user.profileImageUrl);
-    img.onerror = () =>
-      setValidImage("https://i.imgur.com/QdvjMxC.png");
+    img.onerror = () => setValidImage("https://i.imgur.com/QdvjMxC.png");
   }, [user?.profileImageUrl]);
 
   return (
-    <div className="w-60 h-[calc(100vh - 61px)] bg-white border-r border-gray-200/50 sticky z-20">
+    <div className="w-64 h-[calc(100vh - 61px)] bg-white border-r border-gray-200/50 sticky z-20">
       <div className="flex flex-col items-center justify-center pt-5 mb-7">
         <div className="relative">
           <img
             src={validImage || "https://i.imgur.com/QdvjMxC.png"}
-            alt="Profile Image"
-            className="w-20 h-20 bg-slate-200 rounded-full object-contain"
+            alt="Profile"
+            className="w-20 h-20 rounded-full object-cover bg-slate-200"
           />
         </div>
         {user?.role === "admin" && (
-          <div className="text-[10px] font-medium text-primary bg-white px-3 py-0.5 rounded mt-2 border border-primary/50 outline-none">
+          <div className="mt-2 inline-flex items-center gap-1 rounded border border-primary/50 bg-white px-2 py-0.5 text-[10px] font-medium text-primary">
+            <FaCrown className="w-2.5 h-2.5" />
             Admin
           </div>
         )}
