@@ -37,7 +37,7 @@ const SideMenu = ({ activeMenu }) => {
       <div className="flex flex-col items-center justify-center pt-5 mb-7">
         <div className="relative">
           <img
-            src={user?.profileImageUrl || ""}
+            src={user?.profileImageUrl || "https://imgur.com/a/LzzEvNI"}
             alt="Profile Image"
             className="w-20 h-20 bg-slate-200 rounded-full object-contain"
           />
