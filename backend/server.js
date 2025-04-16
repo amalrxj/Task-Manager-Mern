@@ -49,8 +49,13 @@ app.use("/api/reports", reportRoutes);
 //   res.sendFile(path.join(__dirnameFrontend, 'index.html'));
 // });
 
-// Server uploads directory
+// // Server uploads directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// app.use("/uploads", (req, res, next) => {
+//   next();
+// }, express.static(path.join(__dirname, "uploads")));
+
 
 // Start server
 const PORT = process.env.PORT || 5000;

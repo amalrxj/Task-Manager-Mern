@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const SideMenu = ({ activeMenu }) => {
   const { user, clearUser } = useContext(UserContext);
-  const [sideMenuData, setSideMenuData] = useState([]);
+  const [sideMenuData, setSideMenuData] = useState([])
+  const [validImage, setValidImage] = useState(null);;
 
   const navigate = useNavigate();
 
@@ -32,12 +33,21 @@ const SideMenu = ({ activeMenu }) => {
     return () => {};
   }, [user]);
 
+  useEffect(() => {
+    if (!user?.profileImageUrl) return;
+    const img = new Image();
+    img.src = user.profileImageUrl;
+    img.onload = () => setValidImage(user.profileImageUrl);
+    img.onerror = () =>
+      setValidImage("https://i.imgur.com/QdvjMxC.png");
+  }, [user?.profileImageUrl]);
+
   return (
-    <div className="w-64 h-[calc(100vh - 61px)] bg-white border-r border-gray-200/50 sticky z-20">
+    <div className="w-60 h-[calc(100vh - 61px)] bg-white border-r border-gray-200/50 sticky z-20">
       <div className="flex flex-col items-center justify-center pt-5 mb-7">
         <div className="relative">
           <img
-            src={user?.profileImageUrl || "https://i.imgur.com/QdvjMxC.png"}
+            src={validImage || "https://i.imgur.com/QdvjMxC.png"}
             alt="Profile Image"
             className="w-20 h-20 bg-slate-200 rounded-full object-contain"
           />
