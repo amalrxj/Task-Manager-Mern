@@ -33,7 +33,7 @@ const CustomBarChart = ({ data }) => {
           <p className="text-sm text-gray-600">
             Count:{" "}
             <span className="text-sm font-medium text-gray-900">
-              ${payload[0].value}
+              {payload[0].value}
             </span>
           </p>
         </div>
@@ -60,11 +60,9 @@ const CustomBarChart = ({ data }) => {
           <Legend verticalAlign="top" height={36} />
           <Bar
             dataKey="count"
-            nameKey="priority"
+            name="Priority Count"
             fill="#FF8042"
             radius={[10, 10, 0, 0]}
-            activeDot={{ r: 8, fill: "yellow" }}
-            activeStyle={{ fill: "green" }}
           >
             {data.map((entry, index) => (
               <Cell key={index} fill={getBarColor(entry)} />
