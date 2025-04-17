@@ -68,7 +68,7 @@ const SideMenu = ({ activeMenu }) => {
           key={`menu_${index}`}
           className={`w-full flex items-center gap-3 text-[15px] ${
             activeMenu == item.label
-              ? "text-primary bg-linear-to-r from-blue-50/40 to-blue-100/50 border-r-4"
+              ? "text-primary bg-linear-to-r from-blue-50/40 to-blue-100/50 border-r-4 "
               : ""
           } py-3.5 px-6 mb-2 cursor-pointer`}
           onClick={() => handleClick(item.path)}
