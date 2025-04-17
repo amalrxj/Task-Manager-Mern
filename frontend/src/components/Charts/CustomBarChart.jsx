@@ -60,7 +60,7 @@ const CustomBarChart = ({ data }) => {
           <Legend verticalAlign="top" height={36} />
           <Bar
             dataKey="count"
-            name="priority"
+            nameKey="priority"
             fill="#FF8042"
             radius={[10, 10, 0, 0]}
             activeDot={{ r: 8, fill: "yellow" }}
