@@ -8,7 +8,7 @@ import {
   Legend,
 } from "recharts";
 import CustomTooltip from "./CustomTooltip";
-import CustomLegend from "./Customlegend";
+import CustomLegend from "./CustomLegend";
 
 const CustomPieChart = ({ data, colors }) => {
   return (
