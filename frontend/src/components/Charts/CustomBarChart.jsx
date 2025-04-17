@@ -10,26 +10,29 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
+import CustomLegend from "./CustomLegend";
 
 const CustomBarChart = ({ data }) => {
   const getBarColor = (entry) => {
     switch (entry?.priority) {
       case "High":
-        return "#FF1F57"; // Red for High priority
+        return "#FF1F57"; 
       case "Medium":
-        return "#FE9900"; // Orange for Medium priority
+        return "#FE9900"; 
       case "Low":
-        return "#00BC7D"; // Green for Low priority
+        return "#00BC7D";
       default:
-        return "#00BC7D"; // Default color
+        return "#00BC7D"; 
     }
   };
 
   const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
+    if (active && payload?.length) {
       return (
         <div className="bg-white p-2 border border-gray-300 rounded-lg shadow-md">
-          <p className="text-xs font-semibold text-purple-800 mb-1">{`Priority: ${payload[0].payload.priority}`}</p>
+          <p className="text-xs font-semibold text-purple-800 mb-1">
+            {payload[0].payload.priority}
+          </p>
           <p className="text-sm text-gray-600">
             Count:{" "}
             <span className="text-sm font-medium text-gray-900">
@@ -44,7 +47,7 @@ const CustomBarChart = ({ data }) => {
 
   return (
     <div className=" bg-white mt-6">
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={315}>
         <BarChart data={data}>
           <CartesianGrid stroke="none" />
           <XAxis
@@ -57,10 +60,10 @@ const CustomBarChart = ({ data }) => {
             content={<CustomTooltip />}
             cursor={{ fill: "transparent" }}
           />
-          <Legend verticalAlign="top" height={36} />
+          <Legend content={<CustomLegend/>}/>
           <Bar
             dataKey="count"
-            name="Priority Count"
+            name="Priority"
             fill="#FF8042"
             radius={[10, 10, 0, 0]}
           >
