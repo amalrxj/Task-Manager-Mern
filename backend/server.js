@@ -49,11 +49,11 @@ app.get('*', (req, res) => {
 });
 
 // // Server uploads directory
-// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.use("/uploads", (req, res, next) => {
-  next();
-}, express.static(path.join(__dirname, "uploads")));
+// app.use("/uploads", (req, res, next) => {
+//   next();
+// }, express.static(path.join(__dirname, "uploads")));
 
 
 // Start server
