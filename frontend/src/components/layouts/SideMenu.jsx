@@ -39,7 +39,7 @@ const SideMenu = ({ activeMenu }) => {
     const img = new Image();
     img.src = user.profileImageUrl;
     img.onload = () => setValidImage(user.profileImageUrl);
-    img.onerror = () => setValidImage("https://i.imgur.com/QdvjMxC.png");
+    img.onerror = () => setValidImage("/avatar.png");
   }, [user?.profileImageUrl]);
 
   return (
@@ -47,7 +47,7 @@ const SideMenu = ({ activeMenu }) => {
       <div className="flex flex-col items-center justify-center pt-5 mb-7">
         <div className="relative">
           <img
-            src={validImage || "https://i.imgur.com/QdvjMxC.png"}
+            src={validImage || "/avatar.png"}
             alt="Profile"
             className="w-20 h-20 rounded-full object-cover bg-slate-200"
           />

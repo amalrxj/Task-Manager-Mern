@@ -10,7 +10,6 @@ import { UserContext } from "../../context/userContextInstance";
 import { useNavigate } from "react-router-dom";
 import uploadImage from "../../utils/uploadImage";
 
-
 const Signup = () => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");

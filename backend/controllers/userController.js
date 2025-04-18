@@ -18,7 +18,7 @@ const getUsers = async (req, res) => {
         });
         const inProgressTasks = await Task.countDocuments({
           assignedTo: user._id,
-          status: "In-Pprogress",
+          status: "In Progress",
         });
         const completedTasks = await Task.countDocuments({
           assignedTo: user._id,
