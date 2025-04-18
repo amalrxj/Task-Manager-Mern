@@ -10,6 +10,8 @@ import moment from "moment";
 import { LuTrash2 } from "react-icons/lu";
 import SelectDropdown from "../../components/Inputs/SelectDropdown";
 import SelectUsers from "../../components/Inputs/SelectUsers";
+import TodoListInput from "../../components/Inputs/TodoListInput";
+import AddAttachmentsInput from "../../components/Inputs/AddAttachmentsInput";
 
 const CreateTask = () => {
   const location = useLocation();
@@ -48,11 +50,85 @@ const CreateTask = () => {
     });
   };
 
-  const createTask = async () => {};
+  const createTask = async () => {
+    setLoading(true);
+    try {
+      const todolist = taskData.todoChecklist.map((item) => ({
+        text: item,
+        completed: false,
+      }));
 
-  const updateTask = async () => {};
+      const response = await axiosInstance.post(API_PATHS.TASKS.CREATE_TASK, {
+        ...taskData,
+        dueDate: new Date(taskData.dueDate).toISOString(),
+        todoChecklist: todolist,
+      });
 
-  const handleSubmit = async () => {};
+      toast.success("Task created successfully!");
+      clearData();
+    } catch (error) {
+      setError("Failed to create task. Please try again.");
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateTask = async () => {
+    setLoading(true);
+  try {
+    const todolist = taskData.todoChecklist.map((item) => ({
+      text: item,
+      completed: false, 
+    }));
+
+    await axiosInstance.put(`${API_PATHS.TASKS.UPDATE_TASK}/${taskId}`, {
+      ...taskData,
+      dueDate: new Date(taskData.dueDate).toISOString(),
+      todoChecklist: todolist,
+    });
+
+    toast.success("Task updated successfully!");
+    navigate("/tasks");
+  } catch (error) {
+    setError("Failed to update task. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+  };
+
+  const handleSubmit = async () => {
+    if (loading) return;
+    setError(null);
+
+    if (!taskData.title.trim()) {
+      setError("Please enter task title.");
+      return;
+    }
+    if (!taskData.description.trim()) {
+      setError("Please enter task description.");
+      return;
+    }
+    if (!taskData.dueDate || taskData.dueDate === "") {
+      setError("Please select task due date.");
+      return;
+    }
+    if (taskData.assignedTo.length === 0) {
+      setError("Please select at least one user.");
+      return;
+    }
+    if (taskData.todoChecklist.length === 0) {
+      setError("Please add at least one todo item.");
+      return;
+    }
+
+    if (taskId) {
+      updateTask();
+      return;
+    }
+
+    createTask();
+  };
 
   const getTaskDetailsByID = async () => {};
 
@@ -109,7 +185,7 @@ const CreateTask = () => {
                 <label className="form-label">Priority</label>
                 <SelectDropdown
                   options={PRIORITY_DATA}
-                  value={taskData.priority}
+                  value={taskData?.priority}
                   onChange={(value) => handleValueChange("priority", value)}
                   placeholder="Select Priority"
                 />
@@ -121,7 +197,11 @@ const CreateTask = () => {
                   placeholder="Select Due Date"
                   type="date"
                   className="form-input"
-                  value={taskData.dueDate ? moment(taskData.dueDate).format("YYYY-MM-DD") : ""}
+                  value={
+                    taskData.dueDate
+                      ? moment(taskData.dueDate).format("YYYY-MM-DD")
+                      : ""
+                  }
                   onChange={({ target }) =>
                     handleValueChange("dueDate", target.value)
                   }
@@ -136,6 +216,40 @@ const CreateTask = () => {
                   }
                 />
               </div>
+            </div>
+
+            <div className="mt-3">
+              <label className="form-label">Todo Checklist</label>
+              <TodoListInput
+                todoList={taskData?.todoChecklist}
+                setTodoList={(value) =>
+                  handleValueChange("todoChecklist", value)
+                }
+              />
+            </div>
+
+            <div className="mt-3">
+              <label className="form-label">Add Attachments</label>
+              <AddAttachmentsInput
+                attachments={taskData?.attachments}
+                setAttachments={(value) =>
+                  handleValueChange("attachments", value)
+                }
+              />
+            </div>
+
+            {error && (
+              <p className="text-xs font-medium text-red-500 mt-4">{error}</p>
+            )}
+
+            <div className="flex justify-end mt-3">
+              <button
+                className="add-btn"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {taskId ? "Update Task" : "Create Task"}
+              </button>
             </div>
           </div>
         </div>

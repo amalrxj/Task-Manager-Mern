@@ -19,9 +19,10 @@ import ViewTaskDetails from "./pages/User/ViewTaskDetails";
 
 import PrivateRoute from "./routes/PrivateRoute";
 import UserProvider from "./context/userContext";
-import {UserContext} from "./context/userContextInstance"
+import { UserContext } from "./context/userContextInstance";
 
 import { Navigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -42,18 +43,27 @@ const App = () => {
 
             {/* User Routes */}
             <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
-            <Route path="/user/dashboard" element={<UserDashboard />} />
-            <Route path="/user/tasks" element={<MyTasks />} />
-            <Route
-              path="/user/tasks-details/:id"
-              element={<ViewTaskDetails />}
-            />
+              <Route path="/user/dashboard" element={<UserDashboard />} />
+              <Route path="/user/tasks" element={<MyTasks />} />
+              <Route
+                path="/user/tasks-details/:id"
+                element={<ViewTaskDetails />}
+              />
             </Route>
             {/* Default route */}
             <Route path="/" element={<Root />} />
           </Routes>
         </Router>
       </div>
+
+      {/* <ToastContainer /> */}
+      <Toaster
+        toastOptions={{
+          duration: 2000,
+          className: "",
+          style: { fontSize: "13px" },
+        }}
+      />
     </UserProvider>
   );
 };
