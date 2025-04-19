@@ -46,7 +46,7 @@ const App = () => {
               <Route path="/user/dashboard" element={<UserDashboard />} />
               <Route path="/user/tasks" element={<MyTasks />} />
               <Route
-                path="/user/tasks-details/:id"
+                path="/user/task-details/:id"
                 element={<ViewTaskDetails />}
               />
             </Route>
