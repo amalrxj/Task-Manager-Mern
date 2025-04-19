@@ -12,6 +12,8 @@ import SelectDropdown from "../../components/Inputs/SelectDropdown";
 import SelectUsers from "../../components/Inputs/SelectUsers";
 import TodoListInput from "../../components/Inputs/TodoListInput";
 import AddAttachmentsInput from "../../components/Inputs/AddAttachmentsInput";
+import Modal from "../../components/Modal";
+import DeleteAlert from "../../components/DeleteAlert";
 
 const CreateTask = () => {
   const location = useLocation();
@@ -77,21 +79,31 @@ const CreateTask = () => {
   const updateTask = async () => {
     setLoading(true);
     try {
-      const todolist = taskData.todoChecklist?.map((item) => ({
-        text: item,
-        completed: false,
-      }));
+      const todolist = taskData.todoChecklist?.map((item) => {
+        const prevTodoChecklist = currentTask?.todoChecklist || [];
+        const matchedTask = prevTodoChecklist.find(
+          (task) => task.text === item
+        );
 
-      await axiosInstance.put(`${API_PATHS.TASKS.UPDATE_TASK}/${taskId}`, {
-        ...taskData,
-        dueDate: new Date(taskData.dueDate).toISOString(),
-        todoChecklist: todolist,
+        return {
+          text: item,
+          completed: matchedTask ? matchedTask.completed : false,
+        };
       });
+      const response = await axiosInstance.put(
+        API_PATHS.TASKS.UPDATE_TASK(taskId),
+        {
+          ...taskData,
+          dueDate: new Date(taskData.dueDate).toISOString(),
+          todoChecklist: todolist,
+        }
+      );
 
       toast.success("Task updated successfully!");
-      navigate("/tasks");
+      navigate("/admin/tasks");
     } catch (error) {
       setError("Failed to update task. Please try again.");
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -158,14 +170,24 @@ const CreateTask = () => {
     }
   };
 
-  const deleteTask = async () => {};
+  const deleteTask = async () => {
+    try {
+      await axiosInstance.delete(API_PATHS.TASKS.DELETE_TASK(taskId));
+      setOpenDeleteAlert(false);
+
+      toast.success("Task deleted successfully!");
+      navigate("/admin/tasks");
+    } catch (error) {
+      setError("Failed to delete task. Please try again.");
+    }
+  };
 
   useEffect(() => {
     if (taskId) {
       getTaskDetailsByID(taskId);
     }
     return () => {};
-  }, [taskId]);
+  },[taskId]);
 
   return (
     <DashboardLayout activeMenu="Create Task">
@@ -287,6 +309,13 @@ const CreateTask = () => {
           </div>
         </div>
       </div>
+
+      <Modal isOpen={openDeleteAlert} onClose={() => setOpenDeleteAlert(false)}>
+        <DeleteAlert
+          content="Are you sure want to delete the task?"
+          onDelete={() => deleteTask()}
+        />
+      </Modal>
     </DashboardLayout>
   );
 };

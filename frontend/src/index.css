@@ -58,3 +58,7 @@
 .download-btn{
     @apply items-center gap-2 text-xs md:text-sm text-lime-600 font-medium cursor-pointer bg-lime-100 hover:bg-lime-50 px-3 py-2 rounded border border-lime-200 hover:border-lime-400;
 }
+
+.user-card{
+    @apply bg-white p-4 rounded-xl shadow-md shadow-gray-100 border border-gray-200/50;
+}
