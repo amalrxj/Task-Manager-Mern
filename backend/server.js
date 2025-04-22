@@ -40,16 +40,15 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/reports", reportRoutes);
 
 // Serve frontend build (React App)
-const __dirnameFrontend = path.join(__dirname, '../frontend/dist');
-app.use(express.static(__dirnameFrontend));
+// const __dirnameFrontend = path.join(__dirname, '../frontend/dist');
+// app.use(express.static(__dirnameFrontend));
 
-// Catch-all handler to serve React's index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirnameFrontend, 'index.html'));
-});
-
+// // Catch-all handler to serve React's index.html
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirnameFrontend, 'index.html'));
+// });
 // // Server uploads directory
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Start server
 const PORT = process.env.PORT || 5000;
