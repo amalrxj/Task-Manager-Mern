@@ -80,7 +80,7 @@ const SelectUsers = ({ selectedUsers, setSelectedUsers }) => {
               }`}
             >
               <img
-                src={user.profileImageUrl || "avatar.png"}
+                src={user.profileImageUrl || "https://i.imgur.com/QdvjMxC.png"}
                 alt={user.name}
                 className="w-10 h-10 rounded-full"
               />
