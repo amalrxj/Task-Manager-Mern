@@ -17,6 +17,7 @@ app.use(
     origin: process.env.CLIENT_URL ? process.env.CLIENT_URL.split(",") : "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 

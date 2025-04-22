@@ -15,7 +15,11 @@ const uploadImage = async (imageFile) => {
         },
       }
     );
-    return response.data;
+
+    // Destructure imageUrl directly if your backend returns { imageUrl }
+    const { imageUrl } = response.data;
+
+    return imageUrl;
   } catch (error) {
     console.error("Error uploading image:", error);
     throw error;

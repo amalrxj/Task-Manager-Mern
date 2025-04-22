@@ -47,8 +47,7 @@ const Signup = () => {
     // Login API call
     try {
       if (profilePic) {
-        const imgUploadRes = await uploadImage(profilePic);
-        profileImageUrl = imgUploadRes.imageUrl || "";
+        profileImageUrl = await uploadImage(profilePic);
       }
 
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
