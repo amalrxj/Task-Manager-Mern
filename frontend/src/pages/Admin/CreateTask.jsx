@@ -24,7 +24,7 @@ const CreateTask = () => {
     title: "",
     description: "",
     priority: "Low",
-    dueDate: {},
+    dueDate: "",
     assignedTo: [],
     todoChecklist: [],
     attachments: [],
@@ -69,7 +69,10 @@ const CreateTask = () => {
       toast.success("Task created successfully!");
       clearData();
     } catch (error) {
-      setError("Failed to create task. Please try again.");
+      setError(
+        error?.response?.data?.message ||
+          "Failed to create task. Please try again."
+      );
       setLoading(false);
     } finally {
       setLoading(false);
@@ -79,31 +82,35 @@ const CreateTask = () => {
   const updateTask = async () => {
     setLoading(true);
     try {
+      const prevTodoChecklist = currentTask?.todoChecklist || [];
+
       const todolist = taskData.todoChecklist?.map((item) => {
-        const prevTodoChecklist = currentTask?.todoChecklist || [];
         const matchedTask = prevTodoChecklist.find(
           (task) => task.text === item
         );
 
         return {
           text: item,
-          completed: matchedTask ? matchedTask.completed : false,
+          completed: matchedTask?.completed || false,
         };
       });
-      const response = await axiosInstance.put(
-        API_PATHS.TASKS.UPDATE_TASK(taskId),
-        {
-          ...taskData,
-          dueDate: new Date(taskData.dueDate).toISOString(),
-          todoChecklist: todolist,
-        }
-      );
+
+      await axiosInstance.put(API_PATHS.TASKS.UPDATE_TASK(taskId), {
+        ...taskData,
+        dueDate: taskData.dueDate
+          ? new Date(taskData.dueDate).toISOString()
+          : null,
+        todoChecklist: todolist,
+      });
 
       toast.success("Task updated successfully!");
       navigate("/admin/tasks");
     } catch (error) {
-      setError("Failed to update task. Please try again.");
-      setLoading(false);
+      console.error("Update Task Error:", error?.response || error);
+      setError(
+        error?.response?.data?.message ||
+          "Failed to update task. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -186,8 +193,7 @@ const CreateTask = () => {
     if (taskId) {
       getTaskDetailsByID(taskId);
     }
-    return () => {};
-  },[taskId]);
+  }, [taskId]);
 
   return (
     <DashboardLayout activeMenu="Create Task">
@@ -252,11 +258,7 @@ const CreateTask = () => {
                   placeholder="Select Due Date"
                   type="date"
                   className="form-input"
-                  value={
-                    taskData.dueDate
-                      ? moment(taskData.dueDate).format("YYYY-MM-DD")
-                      : ""
-                  }
+                  value={taskData.dueDate || ""}
                   onChange={({ target }) =>
                     handleValueChange("dueDate", target.value)
                   }

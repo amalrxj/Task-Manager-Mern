@@ -164,9 +164,10 @@ const updateTask = async (req, res) => {
     }
 
     const updatedTask = await task.save();
-    res.status(200).json({ message: "Task updated ", task: updatedTask });
+    res.status(200).json({ message: "Task updated successfully", task: updatedTask });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Update task error:", error);
+    res.status(500).json({ message: error.message || "Internal server error" });
   }
 };
 

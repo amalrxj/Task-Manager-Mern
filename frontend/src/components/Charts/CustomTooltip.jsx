@@ -1,7 +1,7 @@
 import React from "react";
 
 const CustomTooltip = ({ active, payload }) => {
-  if (active && payload && payload.length) {
+  if (active && payload && payload.length && payload[0]) {
     return (
       <div className="bg-white p-2 rounded-lg shadow-md border border-gray-200">
         <p className="text-xs font-semibold text-purple-800 mb-1">
