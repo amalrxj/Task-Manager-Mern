@@ -61,8 +61,18 @@ const App = () => {
         toastOptions={{
           duration: 2000,
           className: "",
-          position: "top-right",
-          style: { fontSize: "13px" , backgroundColor: "#333", color: "#fff" },
+          position: "bottom-right",
+          reverseOrder: false,
+          style: {
+            fontSize: "13px",
+            backgroundColor: "#fff",
+            color: "#333",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+          },
+          iconTheme: {
+            primary: "#1368EC",
+            secondary: "#FFFAEE",
+          },
         }}
       />
     </UserProvider>
