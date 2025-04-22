@@ -61,7 +61,8 @@ const App = () => {
         toastOptions={{
           duration: 2000,
           className: "",
-          style: { fontSize: "13px" },
+          position: "top-right",
+          style: { fontSize: "13px" , backgroundColor: "#333", color: "#fff" },
         }}
       />
     </UserProvider>
