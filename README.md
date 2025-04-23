@@ -1,12 +1,51 @@
-# React + Vite
+# 📝 Task Manager - MERN Stack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack task management application built with the **MERN** stack (MongoDB, Express.js, React.js, Node.js). This app allows users to manage their daily tasks effectively with features like task creation, updating, deletion, and completion status tracking.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔍 Description
 
-## Expanding the ESLint configuration
+The **Task Manager MERN** project is designed to help users organize their tasks efficiently with a simple and responsive user interface. It supports full CRUD operations and real-time updates, making it ideal for both personal and collaborative task tracking.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🚀 Features
+
+- ✅ Create, edit, and delete tasks
+- 📋 Mark tasks as completed or pending
+- 🔄 Real-time updates and task status management
+- 📱 Responsive UI for desktop and mobile
+- 🧩 Modular architecture for scalability
+- 📦 RESTful API integration with error handling
+- ⚙️ Clean separation of frontend and backend code
+
+---
+
+## 🛠️ Tech Stack / Frameworks
+
+### 🌐 Frontend
+- [React.js](https://reactjs.org/)
+- [Axios](https://axios-http.com/)
+- CSS3
+
+### 🖥️ Backend
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
+
+---
+
+## 🧪 Installation & Setup
+
+### ✅ Prerequisites
+- Node.js (v16 or higher)
+- MongoDB (local instance or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+- npm or yarn
+
+### 📥 Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/amalrxj/Task-Manager-Mern.git
+cd Task-Manager-Mern
