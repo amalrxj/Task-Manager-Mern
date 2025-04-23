@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /api
+Disallow: /auth
+Disallow: /admin
+Allow: /
+
+Sitemap: https://task-manager-mern-8z62.onrender.com/sitemap.xml

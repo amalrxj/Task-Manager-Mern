@@ -49,6 +49,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirnameFrontend, 'index.html'));
 });
 
+app.get('/robots.txt', (req, res) => {
+  res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
