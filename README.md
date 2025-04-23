@@ -49,3 +49,41 @@ The **Task Manager MERN** project is designed to help users organize their tasks
 ```bash
 git clone https://github.com/amalrxj/Task-Manager-Mern.git
 cd Task-Manager-Mern
+```
+
+### 🔧 Step 2: Backend Setup
+```bash
+cd backend
+npm install
+```
+
+#### Create a .env file inside the server folder with the following content:
+```bash
+PORT = 8000
+CLIENT_URL = https://task-manager********.com
+DB_URI = mongodb+srv://<user>:<passwd>@taskmanager.aphl07l.mongodb.net/?retryWrites=true&w=majority&appName=taskManager
+JWT_SECRET = *****
+ADMIN_INVITE_TOKEN = 1234567
+CLOUDINARY_API_KEY = 51*****
+CLOUDINARY_API_SECRET = 0ymO****
+CLOUDINARY_CLOUD_NAME = da*****
+```
+
+Start the backend server:
+```
+npm start
+```
+
+The backend API will run on:
+http://localhost:8000
+
+### 🎨 Step 3: Frontend Setup
+```
+cd ../frontend
+npm install
+npm start
+```
+
+The frontend will run on:
+http://localhost:5173
+
