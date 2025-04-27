@@ -9,6 +9,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { UserContext } from "../../context/userContextInstance";
 import { useNavigate } from "react-router-dom";
 import uploadImage from "../../utils/uploadImage";
+import AdSenseAd from "../../components/AdSenseAd";
 
 const Signup = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -78,6 +79,8 @@ const Signup = () => {
     }
   };
   return (
+    <>
+    <AdSenseAd/>
     <AuthLayout>
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
         <h3 className="text-xl font-black">Create an Account</h3>
@@ -133,6 +136,7 @@ const Signup = () => {
         </form>
       </div>
     </AuthLayout>
+    </>
   );
 };
 

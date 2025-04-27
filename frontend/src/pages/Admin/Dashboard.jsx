@@ -13,6 +13,7 @@ import { LuArrowRight } from "react-icons/lu";
 import TaskListTable from "../../components/TaskListTable";
 import CustomPieChart from "../../components/Charts/CustomPieChart";
 import CustomBarChart from "../../components/Charts/CustomBarChart";
+import AdSenseAd from "../../components/AdSenseAd";
 
 const COLORS = ["#8D51FF", "#00B8DB", "#7BCE00"];
 
@@ -79,6 +80,8 @@ const Dashboard = () => {
     getDashboardData();
   }, []);
   return (
+    <>
+    <AdSenseAd/>
     <DashboardLayout activeMenu="Dashboard">
       <div className="card my-5">
         <div>
@@ -159,6 +162,7 @@ const Dashboard = () => {
         </div>
       </div>
     </DashboardLayout>
+    </>
   );
 };
 
