@@ -59,19 +59,21 @@ const App = () => {
       {/* <ToastContainer /> */}
       <Toaster
         toastOptions={{
-          duration: 2000,
-          className: "opacity-100 absolute right-4 top-1/2 -translate-y-1/2",
+          duration: 3000,
           position: "bottom-right",
           reverseOrder: false,
           style: {
             fontSize: "13px",
-            backgroundColor: "#fff",
-            color: "#333",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+            backgroundColor: "#EFF6FF", // Soft blue background
+            color: "#1D4ED8", // HeroUI primary blue text
+            border: "1px solid #BFDBFE", // Light blue border
+            borderRadius: "0.5rem", // 8px border radius
+            boxShadow: "none", // No shadow (flat look)
+            padding: "0.75rem 1rem", // Comfortable spacing
           },
           iconTheme: {
-            primary: "#1368EC",
-            secondary: "#FFFAEE",
+            primary: "#1D4ED8", // HeroUI primary blue
+            secondary: "#EFF6FF" , // Soft secondary color
           },
         }}
       />
