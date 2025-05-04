@@ -1,4 +1,4 @@
-export const BASE_URL = "https://task-manager-mern-8z62.onrender.com"; // Replace with your backend URL
+export const BASE_URL = "http://localhost:8000"; // Replace with your backend URL
 
 export const API_PATHS = {
   AUTH: {
