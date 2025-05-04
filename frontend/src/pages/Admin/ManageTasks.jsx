@@ -9,7 +9,6 @@ import TaskStatusTabs from "../../components/TaskStatusTabs";
 import TaskCard from "../../components/Cards/TaskCard";
 import { toast } from "react-hot-toast";
 
-
 const ManageTasks = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [tabs, setTabs] = React.useState([]);
@@ -66,10 +65,9 @@ const ManageTasks = () => {
   };
 
   useEffect(() => {
-    getAllTasks(filterStatus);
-    return () => {};
-  }),
-    [filterStatus];
+    getAllTasks();
+  }, [filterStatus]);
+  
 
   return (
     <DashboardLayout activeMenu="Manage Tasks">
